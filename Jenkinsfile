@@ -1,11 +1,14 @@
 node {
+    
     stage('Preparation') {
-        catchError(buildResult: 'SUCCESS') {
-            sh 'docker stop todoapp'
-            sh 'docker rm todoapp'
+        catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
+            sh 'docker compose down -y || true'
         }
     }
+    stage('Checkout') {
+        checkout scm
+    }
     stage('Build + deploy') {
-        sh 'docker-compose up -d --build'
+        sh 'docker compose up -d --build'
     }
 }
