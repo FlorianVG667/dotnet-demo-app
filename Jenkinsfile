@@ -5,7 +5,7 @@ node {
             sh 'docker rm todoapp'
         }
     }
-    stage('Build') {
-        build 'todoapp'
+    stage('Build + deploy') {
+        sh 'docker-compose up -d --build'
     }
 }
